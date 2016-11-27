@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Metronome</string>
-    <string name="tab1">Fuckin1</string>
-    <string name="tab2">Fuckin2</string>
+    <string name="tab2">This is tab 2</string>
 </resources>

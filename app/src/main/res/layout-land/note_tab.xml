@@ -14,12 +14,12 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/whole" />
+            android:src="@drawable/whole_note" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/whole" />
+            android:src="@drawable/whole_note" />
     </LinearLayout>
 
 
@@ -33,15 +33,17 @@
                 android:id="@+id/whole_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onClick="wholeBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole" />
+                android:src="@drawable/whole_note" />
 
             <ImageButton
                 android:id="@+id/eighth_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="eighthBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole" />
+                android:src="@drawable/whole_note" />
         </TableRow>
 
         <TableRow>
@@ -50,15 +52,17 @@
                 android:id="@+id/half_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="halfBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole" />
+                android:src="@drawable/whole_note" />
 
             <ImageButton
                 android:id="@+id/sixteenth_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="sixteenBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole" />
+                android:src="@drawable/whole_note" />
         </TableRow>
 
         <TableRow>
@@ -67,15 +71,17 @@
                 android:id="@+id/quarter_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="quarterBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole" />
+                android:src="@drawable/whole_note" />
 
             <ImageButton
                 android:id="@+id/diddle_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="diddleBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole" />
+                android:src="@drawable/whole_note" />
         </TableRow>
     </TableLayout>
 

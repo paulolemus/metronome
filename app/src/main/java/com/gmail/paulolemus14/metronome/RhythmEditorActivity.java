@@ -5,10 +5,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class RhythmEditorActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+
+public class RhythmEditorActivity extends AppCompatActivity {   //implements TabLayout.OnTabSelectedListener
+
+    public static final String DTAG = "MetronomeApp";
 
     private CustomView editorView;          // CustomView for drawing on canvas
     private TabLayout tabLayout;
@@ -29,12 +33,12 @@ public class RhythmEditorActivity extends AppCompatActivity implements TabLayout
         viewPager = (ViewPager) findViewById(R.id.pager);                                   // Allows switching
 
         setupFragmentTabs();
-
     }
 
 
     private void setupFragmentTabs() {
 
+        Log.d(DTAG, "Activity: setting up frags");
         tabLayout.addTab(tabLayout.newTab().setText("Notes"));
         tabLayout.addTab(tabLayout.newTab().setText("Options"));
 
@@ -42,22 +46,42 @@ public class RhythmEditorActivity extends AppCompatActivity implements TabLayout
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.half);
-        tabLayout.getTabAt(1).setIcon(R.drawable.quarter);
+        try {
+            tabLayout.getTabAt(0).setIcon(R.drawable.whole_note);
+            tabLayout.getTabAt(1).setIcon(R.drawable.quarter_note_x);
+        } catch (Exception e) {
+            Log.d(DTAG, "Failed tab icon set");
+        }
     }
 
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
+
+    public void wholeBtn(View view) {
+        Log.d(DTAG, "Clicked wholeBtn");
+        editorView.setNoteType(NoteType.WHOLE);
     }
 
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
+    public void halfBtn(View view) {
+        Log.d(DTAG, "Clicked halfBtn");
+        editorView.setNoteType(NoteType.HALF);
     }
 
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
+    public void quarterBtn(View view) {
+        Log.d(DTAG, "Clicked quarterBtn");
+        editorView.setNoteType(NoteType.QUARTER);
+    }
 
+    public void eighthBtn(View view) {
+        Log.d(DTAG, "Clicked eigthBtn");
+        editorView.setNoteType(NoteType.EIGHTH);
+    }
+
+    public void sixteenBtn(View view) {
+        Log.d(DTAG, "Clicked sixteenthBtn");
+        editorView.setNoteType(NoteType.SIXTEENTH);
+    }
+
+    public void diddleBtn(View view) {
+        Log.d(DTAG, "Clicked diddleBtn");
+        editorView.setNoteType(NoteType.DIDDLE);
     }
 }

@@ -7,19 +7,22 @@ import android.graphics.BitmapFactory;
 
 /**
  * Created by Paulo on 11/14/2016.
+ *
+ * This class is used to hold the note bitmap and location data, and will be instantiated
+ * within each measure class anonymously.
  */
 public class Note {
 
-    Context context;
-    Resources res;
-    Bitmap wholeNote;
-    Bitmap halfNote;
-    Bitmap quarterNote;
+    private Context context;
+    private Resources res;
+    private Bitmap wholeNote;
+    private Bitmap halfNote;
+    private Bitmap quarterNote;
 
-    double x, y;                // Location on canvas
-    double scale;
-    int val;                    // 1 = whole, 2 = half, 3 = quarter, 4 = eighth, 5 = 16th
-    boolean isRest;
+    private double x, y;                // Location on canvas
+    private double scale;
+    private int val;                    // 1 = whole, 2 = half, 3 = quarter, 4 = eighth, 5 = 16th
+    private boolean isRest;
 
     public Note(Context c, double x, double y, int type, Resources rec){
 
@@ -31,9 +34,9 @@ public class Note {
     }
 
     public void init(){
-        wholeNote = BitmapFactory.decodeResource(res, R.drawable.whole);
-        halfNote = BitmapFactory.decodeResource(res, R.drawable.half);
-        quarterNote = BitmapFactory.decodeResource(res, R.drawable.quarter);
+        wholeNote = BitmapFactory.decodeResource(res, R.drawable.whole_note);
+        halfNote = BitmapFactory.decodeResource(res, R.drawable.whole_note);
+        quarterNote = BitmapFactory.decodeResource(res, R.drawable.whole_note);
     }
     public Bitmap render(){
 
