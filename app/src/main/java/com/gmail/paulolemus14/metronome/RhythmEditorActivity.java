@@ -18,6 +18,8 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    // Good orientation website:
+    // code.hootsuite.com/orientation-changes-on-android/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,5 +85,15 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
     public void diddleBtn(View view) {
         Log.d(DTAG, "Clicked diddleBtn");
         editorView.setNoteType(NoteType.DIDDLE);
+    }
+
+    public void addMeasureBtn(View view) {
+        Log.d(DTAG, "Clicked addMeasureBtn");
+        editorView.addMeasure();
+    }
+
+    public void delMeasureBtn(View view) {
+        Log.d(DTAG, "Clicked delMeasureBtn");
+        editorView.deleteMeasure();
     }
 }

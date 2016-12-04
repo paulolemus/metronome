@@ -19,16 +19,12 @@ public class Note {
     private Bitmap halfNote;
     private Bitmap quarterNote;
 
-    private double x, y;                // Location on canvas
-    private double scale;
     private int val;                    // 1 = whole, 2 = half, 3 = quarter, 4 = eighth, 5 = 16th
     private boolean isRest;
 
-    public Note(Context c, double x, double y, int type, Resources rec){
+    public Note(Context c, int type, Resources rec) {
 
         this.context = c;
-        this.x = x;
-        this.y = y;
         val = type;
         this.res = rec;
     }

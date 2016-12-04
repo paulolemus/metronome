@@ -11,15 +11,19 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
-        <ImageButton
+        <Button
+            android:id="@+id/del_measure_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/whole_note" />
+            android:onClick="delMeasureBtn"
+            android:text="@string/del_bar_btn" />
 
-        <ImageButton
+        <Button
+            android:id="@+id/add_measure_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/whole_note" />
+            android:onClick="addMeasureBtn"
+            android:text="@string/add_bar_btn" />
     </LinearLayout>
 
 
@@ -37,51 +41,47 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/whole_note" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/eighth_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="eighthBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/whole_note" />
+                android:text="@string/eighth_btn" />
         </TableRow>
 
         <TableRow>
 
-            <ImageButton
+            <Button
                 android:id="@+id/half_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="halfBtn"
-                android:scaleType="fitXY"
-                android:src="@drawable/whole_note" />
+                android:text="@string/half_btn" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/sixteenth_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="sixteenBtn"
-                android:scaleType="fitXY"
-                android:src="@drawable/whole_note" />
+                android:text="@string/sixteenth_btn" />
         </TableRow>
 
         <TableRow>
 
-            <ImageButton
+            <Button
                 android:id="@+id/quarter_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="quarterBtn"
-                android:scaleType="fitXY"
-                android:src="@drawable/whole_note" />
+                android:text="@string/quarter_btn" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/diddle_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="diddleBtn"
-                android:scaleType="fitXY"
-                android:src="@drawable/whole_note" />
+                android:text="@string/diddle_btn" />
         </TableRow>
     </TableLayout>
 

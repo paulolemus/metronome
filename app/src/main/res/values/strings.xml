@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Metronome</string>
     <string name="tab2">This is tab 2</string>
+
+    <string name="whole_btn">whole</string>
+    <string name="half_btn">half</string>
+    <string name="quarter_btn">quart</string>
+    <string name="eighth_btn">eight</string>
+    <string name="sixteenth_btn">sixth</string>
+    <string name="diddle_btn">diddl</string>
+    <string name="add_bar_btn">+</string>
+    <string name="del_bar_btn">-</string>
+
 </resources>
