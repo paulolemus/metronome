@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_metronome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.gmail.paulolemus14.metronome.MetronomeActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/bpmdisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_play"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text=" " />
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/beatdisplay"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="157dp"
+        android:layout_toEndOf="@+id/textView"
+        android:text="Play" />
+
+    <EditText
+        android:id="@+id/beatdisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bpmdisplay"
+        android:layout_below="@+id/bpmdisplay"
+        android:layout_marginTop="77dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text=" " />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bpmdisplay"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="17dp"
+        android:text="bpm" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/beatdisplay"
+        android:layout_below="@+id/bpmdisplay"
+        android:layout_marginTop="36dp"
+        android:text="beat" />
+
+    <Button
+        android:id="@+id/btn_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_play"
+        android:layout_marginStart="54dp"
+        android:layout_toEndOf="@+id/btn_play"
+        android:text="Stuff" />
+</RelativeLayout>

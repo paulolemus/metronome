@@ -62,13 +62,6 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(DTAG, "Entered onPause");
-//        editorView.saveState();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(DTAG, "Entered OnDestroy");
@@ -76,7 +69,6 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
         retainer.setInterpreter(editorView.getState());
         Log.d(DTAG, "Saved Data to retainer");
     }
-
 
     private void setupFragmentTabs() {
 
@@ -89,8 +81,8 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
         tabLayout.setupWithViewPager(viewPager);
 
         try {
-            tabLayout.getTabAt(0).setIcon(R.drawable.whole_note);
-            tabLayout.getTabAt(1).setIcon(R.drawable.quarter_note_x);
+            tabLayout.getTabAt(0).setIcon(R.drawable.ic_create_black_24dp);
+            tabLayout.getTabAt(1).setIcon(R.drawable.ic_settings_black_24dp);
         } catch (Exception e) {
             Log.d(DTAG, "Failed tab icon set");
         }
@@ -127,8 +119,8 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
         editorView.addNote();
     }
 
-    public void diddleBtn(View view) {
-        Log.d(DTAG, "Clicked diddleBtn, nothing happened");
+    public void delNoteBtn(View view) {
+        Log.d(DTAG, "Clicked delNoteBtn");
         editorView.deleteNote();
     }
 

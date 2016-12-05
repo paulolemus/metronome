@@ -159,6 +159,7 @@ public class CustomView extends View {
         int size = measureList.size() - 1;
         int noteVal;
         int remainder;
+        boolean broken = false;
         // Iterate from last measure until we find one that is not empty. Get the value of the last
         // note in the list, delete it, subtract the value from the measure.
         // Otherwise, get remainder, clear measureVal, delete note from previous measure
@@ -186,12 +187,16 @@ public class CustomView extends View {
                 Log.d(DTAG, "Breaking loop");
                 barEditIndex = 0;
                 invalidate();
+                broken = true;
                 break;
             }
         }
-        Toast t = Toast.makeText(getContext(), "Nothing to delete!", Toast.LENGTH_SHORT);
-        t.setGravity(Gravity.CENTER, 0, 0);
-        t.show();
+        if (!broken) {
+            Toast t = Toast.makeText(getContext(), "Nothing to delete!", Toast.LENGTH_SHORT);
+            t.setGravity(Gravity.CENTER, 0, 0);
+            t.show();
+        }
+
     }
 
 
@@ -200,7 +205,7 @@ public class CustomView extends View {
         super.onDraw(canvas);
 
         canvas.drawBitmap(BG, canvas.getWidth() - BG.getWidth() / 2, canvas.getHeight() - BG.getHeight() / 2, null);
-        canvas.drawBitmap(currentNote, x - currentNote.getWidth() / 2, y - currentNote.getHeight() / 2, null);
+        //canvas.drawBitmap(currentNote, x - currentNote.getWidth() / 2, y - currentNote.getHeight() / 2, null);
         canvas.drawText(currTitle, viewWidth / 2, viewHeight / 10, titlePaint);
 
         Log.d(DTAG, "drawing measures, entering loop");
