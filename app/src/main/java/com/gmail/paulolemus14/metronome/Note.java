@@ -1,50 +1,60 @@
 package com.gmail.paulolemus14.metronome;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 
 /**
  * Created by Paulo on 11/14/2016.
- *
+ * <p>
  * This class is used to hold the note bitmap and location data, and will be instantiated
  * within each measure class anonymously.
  */
 public class Note {
 
-    private Context context;
     private Resources res;
-    private Bitmap wholeNote;
-    private Bitmap halfNote;
-    private Bitmap quarterNote;
 
-    private int val;                    // 1 = whole, 2 = half, 3 = quarter, 4 = eighth, 5 = 16th
+    private NoteType noteType;
+    private Bitmap noteBitmap;
+
+    private float x;
+    private float y;
+    private int value;
     private boolean isRest;
 
-    public Note(Context c, int type, Resources rec) {
+    public Note(Resources res, NoteType noteType, float x, float y, boolean isRest) {
 
-        this.context = c;
-        val = type;
-        this.res = rec;
-    }
+        this.res = res;
+        this.noteType = noteType;
+        this.x = x + noteType.getXOffset();
+        this.y = y + noteType.getYOffset();
 
-    public void init(){
-        wholeNote = BitmapFactory.decodeResource(res, R.drawable.whole_note);
-        halfNote = BitmapFactory.decodeResource(res, R.drawable.whole_note);
-        quarterNote = BitmapFactory.decodeResource(res, R.drawable.whole_note);
-    }
-    public Bitmap render(){
+        this.isRest = isRest;
+        this.value = noteType.getValue();
 
-        switch(val){
-            case 1: return wholeNote;       // Whole
-            case 2: return halfNote;        // Half
-            case 3: return quarterNote;     // Quarter
-            case 4: return quarterNote;     // Eighth
-            case 5: return quarterNote;     // 16th
-            default: return quarterNote;
+        if (isRest) {
+            noteBitmap = BitmapFactory.decodeResource(res, noteType.getResRestID());
+        } else {
+            noteBitmap = BitmapFactory.decodeResource(res, noteType.getResNoteID());
         }
     }
 
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public Bitmap getBitmap() {
+        return noteBitmap;
+    }
 
 }

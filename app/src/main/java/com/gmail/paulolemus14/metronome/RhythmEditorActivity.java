@@ -24,17 +24,19 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);                                      // Set fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        Log.d(DTAG, "finished setting flags");
         setContentView(R.layout.activity_rhythm_editor);
-
+        Log.d(DTAG, "Finished settingContentView");
         editorView = (CustomView) findViewById(R.id.editor_view);                            // View for the noteEditor
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);                               // The tab layout for fragments
         viewPager = (ViewPager) findViewById(R.id.pager);                                   // Allows switching
-
+        Log.d(DTAG, "Finished finding views");
         setupFragmentTabs();
+        Log.d(DTAG, "Finished setting up fragments");
     }
 
 
@@ -60,39 +62,43 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
     public void wholeBtn(View view) {
         Log.d(DTAG, "Clicked wholeBtn");
         editorView.setNoteType(NoteType.WHOLE);
+        editorView.addNote();
     }
 
     public void halfBtn(View view) {
         Log.d(DTAG, "Clicked halfBtn");
         editorView.setNoteType(NoteType.HALF);
+        editorView.addNote();
     }
 
     public void quarterBtn(View view) {
         Log.d(DTAG, "Clicked quarterBtn");
         editorView.setNoteType(NoteType.QUARTER);
+        editorView.addNote();
     }
 
     public void eighthBtn(View view) {
         Log.d(DTAG, "Clicked eigthBtn");
         editorView.setNoteType(NoteType.EIGHTH);
+        editorView.addNote();
     }
 
     public void sixteenBtn(View view) {
         Log.d(DTAG, "Clicked sixteenthBtn");
         editorView.setNoteType(NoteType.SIXTEENTH);
+        editorView.addNote();
     }
 
     public void diddleBtn(View view) {
-        Log.d(DTAG, "Clicked diddleBtn");
-        editorView.setNoteType(NoteType.DIDDLE);
+        Log.d(DTAG, "Clicked diddleBtn, nothing happened");
     }
 
-    public void addMeasureBtn(View view) {
+    public void addMeasureBtn(View view) { // works
         Log.d(DTAG, "Clicked addMeasureBtn");
         editorView.addMeasure();
     }
 
-    public void delMeasureBtn(View view) {
+    public void delMeasureBtn(View view) { // works
         Log.d(DTAG, "Clicked delMeasureBtn");
         editorView.deleteMeasure();
     }

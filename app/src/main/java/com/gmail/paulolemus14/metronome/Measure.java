@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.gmail.paulolemus14.metronome.RhythmEditorActivity.DTAG;
 
 /**
  * Created by Paulo on 11/26/2016.
@@ -19,15 +22,14 @@ import java.util.List;
 public class Measure {
 
     private Resources res;                  // To draw notes
-    private Context context;                // to draw notes
 
     private int listIndex;                  // The measure's index in the measureList
     private int canvasX;                    // canvas max X, used to calculate placement
     private int canvasY;                    // canvas max Y, used to calculate placement
-    private float topPadding;              // Portrait = 0.2*canvasY, Land = 0.25*canvasY
-    private float sidePadding;             // Portrait = 0.1*canvasX, Land = 0.1*canvasX
-    private float bottomPadding;           // Portrait = 0.1*canvasY, Land = 0.2*canvasY
-    private float usableHeight;            // canvasY - bottom - top
+    private float topPadding;               // Portrait = 0.2*canvasY, Land = 0.25*canvasY
+    private float sidePadding;              // Portrait = 0.05*canvasX, Land = 0.05*canvasX
+    private float bottomPadding;            // Portrait = 0.1*canvasY, Land = 0.2*canvasY
+    private float usableHeight;             // canvasY - bottom - top
     private int orient;                     // Current Orientation
 
     private float barStartX;                // Measure starting X location on canvas
@@ -35,19 +37,19 @@ public class Measure {
     private float barY;                     // Measure Y value on canvas
     private float divDiffY = 9f;            // constant for now
 
+    private float fractX;                   // Used for placing notes. This is 1/18 of measure length
 
-    private int timeSigNum = 4;             // default, how many beats in a measure | noteval=note*TS_num*100
-    private int timeSigDen = 4;             // default, note value that represents one beat
+    private int timeSigNum;                 // default, how many beats in a measure | noteval=note*TS_num*100
+    private int timeSigDen;                 // default, note value that represents one beat
     private int maxCount = 400;             // default, maxCount = 100* TS_den
     private int currentVal = 0;             // current note we are on
 
 
-    private List<Note> noteContainer = new ArrayList<>();
+    private List<Note> noteList = new ArrayList<>();
 
 
-    public Measure(Context context, Resources res, int num, int den, int canvasX, int canvasY) {    // Still need index
+    public Measure(Resources res, int num, int den, int canvasX, int canvasY) {    // Still need index
 
-        this.context = context;
         this.res = res;
         timeSigNum = num;
         timeSigDen = den;
@@ -58,15 +60,28 @@ public class Measure {
 
         if (orient == Configuration.ORIENTATION_PORTRAIT) {
             topPadding = 0.25f * canvasY;
-            sidePadding = 0.1f * canvasX;
+            sidePadding = 0.05f * canvasX;
             bottomPadding = 0.15f * canvasY;
         } else {
             topPadding = 0.3f * canvasY;
-            sidePadding = 0.1f * canvasX;
+            sidePadding = 0.05f * canvasX;
             bottomPadding = 0.2f * canvasY;
         }
         usableHeight = canvasY - topPadding - bottomPadding;
     }
+
+    public void addNote(Resources res, NoteType n, boolean isRest) {
+        // logic for getting x from width and values
+        float noteX = barStartX + fractX + fractX * (currentVal / 25);
+        Log.d(DTAG, "NoteX=" + noteX + "\n\tbarStartX=" + barStartX + "\n\tfractX=" + fractX + "\n\tcurrval/25=" + (currentVal / 25));
+
+        noteList.add(new Note(res, n, noteX, barY, isRest));
+        currentVal += n.getValue();
+        if (currentVal > maxCount) {
+            currentVal = maxCount;
+        }
+    }
+
 
     public int getIndex() {
         return listIndex;
@@ -74,6 +89,30 @@ public class Measure {
 
     public void setIndex(int index) {
         listIndex = index;
+    }
+
+    public int getCurrentVal() {
+        return currentVal;
+    }
+
+    public void setCurrentVal(int val) {
+        currentVal = val;
+    }
+
+    public void addToCurrentVal(int val) {
+        currentVal += val;
+    }
+
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public boolean isFull() {
+        return currentVal >= maxCount;
+    }
+
+    public List<Note> getNoteList() {
+        return noteList;
     }
 
     public void calcPlacement() {
@@ -87,6 +126,8 @@ public class Measure {
             barEndX = canvasX - sidePadding;
             barY = (topPadding + (usableHeight / 3) * (listIndex / 2));
         }
+        fractX = (barEndX - barStartX) / 18;
+        Log.d(DTAG, "CALCPLACEMENT FRaCTX=" + fractX);
     }
 
     // call upon changing canvas/orientation
@@ -97,14 +138,16 @@ public class Measure {
 
         if (orient == Configuration.ORIENTATION_PORTRAIT) {
             topPadding = 0.25f * canvasY;
-            sidePadding = 0.1f * canvasX;
+            sidePadding = 0.05f * canvasX;
             bottomPadding = 0.15f * canvasY;
         } else {
             topPadding = 0.3f * canvasY;
-            sidePadding = 0.1f * canvasX;
+            sidePadding = 0.05f * canvasX;
             bottomPadding = 0.2f * canvasY;
         }
         usableHeight = canvasY - topPadding - bottomPadding;
+        fractX = (barEndX - barStartX) / 18;
+        Log.d(DTAG, "UPDATEBOUNDS FRaCTX=" + fractX);
     }
 
     public float[] getMeasurePlacement() {
