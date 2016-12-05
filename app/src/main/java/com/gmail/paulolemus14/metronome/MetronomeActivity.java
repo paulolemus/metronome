@@ -1,5 +1,6 @@
 package com.gmail.paulolemus14.metronome;
 
+import android.content.Intent;
 import android.media.AudioTrack;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,19 +15,21 @@ public class MetronomeActivity extends AppCompatActivity {
 
     public static final String TAG = "MetronomeApp";
     public static String PACKAGE_NAME;
-
     volatile int flag = 0;
     volatile int flag1 = 0;
     volatile int bp, bt;
-
     Metronome metronome = new Metronome();
     Converter converter;
-    AudioTrack audioTrack;
+    private float[][] noteData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metronome);
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        noteData = (float[][]) b.getSerializable("data");
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
 
@@ -40,6 +43,7 @@ public class MetronomeActivity extends AppCompatActivity {
         Log.d(TAG, "Finished initializing converter");
         playbtnlistener();
         notebtnlistener();
+
     }
 
     private void playbtnlistener() {
@@ -103,7 +107,6 @@ public class MetronomeActivity extends AppCompatActivity {
                 } else {
                     //metronome.stop();
                     converter.stop();
-                    //piece.stop();
                     flag = 0;
                 }
             }

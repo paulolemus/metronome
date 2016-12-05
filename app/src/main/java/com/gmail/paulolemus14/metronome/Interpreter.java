@@ -26,6 +26,8 @@ public class Interpreter {
 
     private List<Measure> builtList;
 
+    private float[][] passableData;
+
 
     public Interpreter() {
     }
@@ -104,5 +106,26 @@ public class Interpreter {
 
     public List<Measure> getBuiltList() {
         return builtList;
+    }
+
+    public void createPassable() {
+
+        try {
+            passableData = new float[bigNoteTypeList.size()][16];
+
+            for (int i = 0; i < passableData.length; i++) {
+                for (int j = 0; j < bigNoteTypeList.get(i).size(); j++) {
+
+                    passableData[i][j] = bigNoteTypeList.get(i).get(j).getModifier();
+                }
+            }
+        } catch (Exception e) {
+            Log.d(DTAG, "Failed to create passable");
+        }
+
+    }
+
+    public float[][] getPassable() {
+        return passableData;
     }
 }

@@ -1,5 +1,10 @@
 package com.gmail.paulolemus14.metronome;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.sql.Time;
+
 /**
  * Created by Paulo on 11/26/2016.
  * <p>
@@ -66,4 +71,6 @@ public enum NoteType {
     public float getYOffset() {
         return yOffset;
     }
+
+
 }

@@ -11,15 +11,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.List;
-
 
 public class RhythmEditorActivity extends AppCompatActivity {   //implements TabLayout.OnTabSelectedListener
 
     public static final String DTAG = "MetronomeApp";
     private final String FM_TAG = "data";
-
-    private List<Measure> measureList;
 
     private CustomView editorView;          // CustomView for drawing on canvas
     private TabLayout tabLayout;
@@ -137,7 +133,13 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
 
     public void intentBtn(View view) {
         Log.d(DTAG, "Clicked intentBtn");
+        interpreter.createPassable();
+        float[][] data = interpreter.getPassable();
+
         Intent intent = new Intent(this, MetronomeActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("data", data);
+        intent.putExtras(b);
 
         startActivity(intent);
     }

@@ -68,4 +68,16 @@ public class Note {
         return noteBitmap;
     }
 
+    public void setLink(boolean b) {
+        isRest = b;
+    }
+
+    public void setNoteBitmap() {
+        if (isRest) {
+            noteBitmap = BitmapFactory.decodeResource(res, noteType.getResLinkID());
+        } else {
+            noteBitmap = BitmapFactory.decodeResource(res, noteType.getResNoteID());
+        }
+    }
+
 }
