@@ -1,6 +1,7 @@
 package com.gmail.paulolemus14.metronome;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +10,23 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.List;
+
 
 public class RhythmEditorActivity extends AppCompatActivity {   //implements TabLayout.OnTabSelectedListener
 
     public static final String DTAG = "MetronomeApp";
+    private final String FM_TAG = "data";
+
+    private List<Measure> measureList;
 
     private CustomView editorView;          // CustomView for drawing on canvas
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private Retainer retainer;          // Used for saving data
+    private Interpreter interpreter;    // Used for converting data
+
 
     // Good orientation website:
     // code.hootsuite.com/orientation-changes-on-android/
@@ -37,6 +47,34 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
         Log.d(DTAG, "Finished finding views");
         setupFragmentTabs();
         Log.d(DTAG, "Finished setting up fragments");
+
+        FragmentManager fm = getSupportFragmentManager();
+        retainer = (Retainer) fm.findFragmentByTag(FM_TAG);
+
+        if (retainer == null) {
+            Log.d(DTAG, "retainer = NULL");
+            retainer = new Retainer();
+            fm.beginTransaction().add(retainer, FM_TAG).commit();
+        } else {
+            editorView.setState(retainer.getInterpreter());
+            Log.d(DTAG, "SETSTATE");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(DTAG, "Entered onPause");
+//        editorView.saveState();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(DTAG, "Entered OnDestroy");
+        editorView.saveState();
+        retainer.setInterpreter(editorView.getState());
+        Log.d(DTAG, "Saved Data to retainer");
     }
 
 
@@ -91,6 +129,7 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
 
     public void diddleBtn(View view) {
         Log.d(DTAG, "Clicked diddleBtn, nothing happened");
+        editorView.deleteNote();
     }
 
     public void addMeasureBtn(View view) { // works

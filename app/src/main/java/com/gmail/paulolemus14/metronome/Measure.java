@@ -103,6 +103,13 @@ public class Measure {
         currentVal += val;
     }
 
+    public void subFromCurrentVal(int val) {
+        currentVal -= val;
+        if (currentVal < 0) {
+            currentVal = 0;
+        }
+    }
+
     public int getMaxCount() {
         return maxCount;
     }

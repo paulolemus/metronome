@@ -35,6 +35,7 @@ public class CustomView extends View {
     final int MAX_BARS = 8;                       // Max number of bars allowed in screen TODO: Add capacity
     private Bitmap BG = BitmapFactory.decodeResource(getResources(),
             R.drawable.paper_bg);                 // The background
+
     private List<Measure> measureList = new ArrayList<>();  // The list to contain all measures for the canvas
     private int viewWidth;                        // default size of canvas in portrait
     private int viewHeight;                       // default values
@@ -59,15 +60,21 @@ public class CustomView extends View {
     private int remainder = 0;                    // remainder of note overflow
     private boolean isRest = false;
 
+    private Interpreter interpreter;
+    private boolean interpret = false;
 
     public CustomView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         Log.d(DTAG, "Entered constructor for editor");
+        //interpreter = new Interpreter();
         quarter = BitmapFactory.decodeResource(getResources(), R.drawable.quarter_note_x);
         whole = BitmapFactory.decodeResource(getResources(), R.drawable.whole_note);
         currentNote = whole;
         init();
+        if (interpreter != null) {
+            interpret = true;
+        }
     }
 
 
@@ -112,6 +119,7 @@ public class CustomView extends View {
         barEditIndex = 0;
     }
 
+    // How does this draw to the canvas??
     public void addNote() {
         try {
             Measure m = measureList.get(barEditIndex);
@@ -147,7 +155,43 @@ public class CustomView extends View {
     }
 
     public void deleteNote() {
+        Log.d(DTAG, "Entered delete note Method");
+        int size = measureList.size() - 1;
+        int noteVal;
+        int remainder;
+        // Iterate from last measure until we find one that is not empty. Get the value of the last
+        // note in the list, delete it, subtract the value from the measure.
+        // Otherwise, get remainder, clear measureVal, delete note from previous measure
+        for (int i = size; i >= 0; i--) {
+            Measure m = measureList.get(i);
+            int barVal = m.getCurrentVal();
+            if (barVal > 0) {
+                remainder = barVal;
+                List<Note> noteList = m.getNoteList();
 
+                if (!noteList.isEmpty()) {
+                    Log.d(DTAG, "clearing current");
+                    noteVal = noteList.get(noteList.size() - 1).getValue();
+                    noteList.remove(noteList.size() - 1);
+                    m.subFromCurrentVal(noteVal);
+                } else {
+                    Log.d(DTAG, "clearing current and previous");
+                    m.setCurrentVal(0);
+                    m = measureList.get(i - 1);
+                    noteList = m.getNoteList();
+                    noteVal = noteList.get(noteList.size() - 1).getValue();
+                    noteList.remove(noteList.size() - 1);
+                    m.subFromCurrentVal(noteVal - remainder);
+                }
+                Log.d(DTAG, "Breaking loop");
+                barEditIndex = 0;
+                invalidate();
+                break;
+            }
+        }
+        Toast t = Toast.makeText(getContext(), "Nothing to delete!", Toast.LENGTH_SHORT);
+        t.setGravity(Gravity.CENTER, 0, 0);
+        t.show();
     }
 
 
@@ -178,6 +222,14 @@ public class CustomView extends View {
         Log.d(DTAG, "Entered onSizeChanged");
         viewWidth = w;
         viewHeight = h;
+
+        if (interpret) {
+            interpreter.buildList(getResources(), TS_NUM, TS_DEN, viewWidth, viewHeight);
+            measureList = interpreter.getBuiltList();
+            interpret = false;
+            currMeasure = measureList.size();
+        }
+
         try {
             if (measureList.isEmpty()) {
                 Log.d(DTAG, "Added bar to empty list");
@@ -261,5 +313,24 @@ public class CustomView extends View {
         if (currTitle == null) {
             currTitle = new String("Untitled 1");
         }
+    }
+
+    public void saveState() {
+        Log.d(DTAG, "Saving state");
+        if (interpreter == null) {
+            interpreter = new Interpreter();
+        }
+        interpreter.setList(measureList);
+        interpreter.convertList();
+        Log.d(DTAG, "Successfully saved");
+    }
+
+    public Interpreter getState() {
+        return interpreter;
+    }
+
+    public void setState(Interpreter i) {
+        interpreter = i;
+        interpret = true;
     }
 }

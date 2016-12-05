@@ -13,21 +13,29 @@ package com.gmail.paulolemus14.metronome;
 public enum NoteType {
 
     WHOLE(1, R.drawable.music_wholenote, R.drawable.music_wholenote, -31, -24),
-    HALF(0.5f, R.drawable.music_halfnote, R.drawable.whole_note, -26, -37),
-    QUARTER(0.25f, R.drawable.music_quarternote, R.drawable.whole_note, -28, -53),
-    EIGHTH(0.125f, R.drawable.music_eighthnote, R.drawable.whole_note, -27, -51),
-    SIXTEENTH(0.0625f, R.drawable.music_sixteennote, R.drawable.whole_note, -29, -52);
+    HALF(0.5f, R.drawable.music_halfnote, R.drawable.music_halfnote, -26, -37),
+    QUARTER(0.25f, R.drawable.music_quarternote, R.drawable.music_quarternote, -28, -53),
+    EIGHTH(0.125f, R.drawable.music_eighthnote, R.drawable.music_quarternote, -27, -51),
+    SIXTEENTH(0.0625f, R.drawable.music_sixteennote, R.drawable.music_quarternote, -29, -52);
+
+//    LINK()
+//
+//    WHOLE_REST(1, R.drawable.music_halfrest, R.drawable.music_halfrest, 0, 0),
+//    HALF_REST(0.5f, R.drawable.music_halfrest, R.drawable.music_halfrest, 0, 0),
+//    QUARTER_REST(0.25f, R.drawable.music_quarterrest, R.drawable.music_quarterrest, 0, 0),
+//    EIGHTH_REST(0.125f, R.drawable.music_eighthrest, R.drawable.music_eighthrest, 0, 0),
+//    SIXTEENTH_REST(0.0625f, R.drawable.music_sixteenrest, R.drawable.music_sixteenrest, 0, 0);
 
     private float modifier;
     private int resNoteID;
-    private int resRestID;
+    private int resLinkID;
     private float xOffset;
     private float yOffset;
 
-    NoteType(float modifier, int resNoteID, int resRestID, float xOffset, float yOffset) {
+    NoteType(float modifier, int resNoteID, int resLinkID, float xOffset, float yOffset) {
         this.modifier = modifier;
         this.resNoteID = resNoteID;
-        this.resRestID = resRestID;
+        this.resLinkID = resLinkID;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }
@@ -44,8 +52,8 @@ public enum NoteType {
         return resNoteID;
     }
 
-    public int getResRestID() {
-        return resRestID;
+    public int getResLinkID() {
+        return resLinkID;
     }
 
     public float getXOffset() {
