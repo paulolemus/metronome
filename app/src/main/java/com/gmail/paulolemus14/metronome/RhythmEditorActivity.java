@@ -1,5 +1,6 @@
 package com.gmail.paulolemus14.metronome;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -132,5 +133,12 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
     public void delMeasureBtn(View view) { // works
         Log.d(DTAG, "Clicked delMeasureBtn");
         editorView.deleteMeasure();
+    }
+
+    public void intentBtn(View view) {
+        Log.d(DTAG, "Clicked intentBtn");
+        Intent intent = new Intent(this, MetronomeActivity.class);
+
+        startActivity(intent);
     }
 }

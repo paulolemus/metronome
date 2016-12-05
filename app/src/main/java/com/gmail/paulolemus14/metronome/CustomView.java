@@ -67,8 +67,8 @@ public class CustomView extends View {
         super(context, attrs);
 
         Log.d(DTAG, "Entered constructor for editor");
-        //interpreter = new Interpreter();
-        quarter = BitmapFactory.decodeResource(getResources(), R.drawable.quarter_note_x);
+
+        quarter = BitmapFactory.decodeResource(getResources(), R.drawable.ic_music_quarternote);
         whole = BitmapFactory.decodeResource(getResources(), R.drawable.whole_note);
         currentNote = whole;
         init();

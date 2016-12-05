@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:gravity="center"
     android:orientation="horizontal">
@@ -12,29 +13,33 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/add_measure_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/box_dims"
+            android:layout_height="@dimen/box_dims"
             android:onClick="addMeasureBtn"
-            android:text="@string/add_bar_btn" />
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_add_black_24dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/del_measure_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/box_dims"
+            android:layout_height="@dimen/box_dims"
             android:onClick="delMeasureBtn"
-            android:text="@string/del_bar_btn" />
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_remove_black_24dp" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
@@ -44,19 +49,20 @@
 
             <ImageButton
                 android:id="@+id/eighth_button"
-                android:layout_width="@dimen/box_dims"
-                android:layout_height="@dimen/box_dims"
+                android:layout_width="@dimen/main_dims"
+                android:layout_height="@dimen/main_dims"
                 android:onClick="eighthBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/music_eighthnote" />
+                android:src="@drawable/ic_music_eighthnote" />
 
             <ImageButton
                 android:id="@+id/sixteenth_button"
-                android:layout_width="@dimen/box_dims"
-                android:layout_height="@dimen/box_dims"
+                android:layout_width="@dimen/main_dims"
+                android:layout_height="@dimen/main_dims"
+                android:adjustViewBounds="true"
                 android:onClick="sixteenBtn"
-                android:scaleType="centerCrop"
-                android:src="@drawable/music_sixteennote" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_music_sixteenthnote" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,16 +72,17 @@
 
             <ImageButton
                 android:id="@+id/half_button"
-                android:layout_width="@dimen/box_dims"
-                android:layout_height="@dimen/box_dims"
+                android:layout_width="@dimen/main_dims"
+                android:layout_height="@dimen/main_dims"
+                android:adjustViewBounds="true"
                 android:onClick="halfBtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/music_halfnote" />
+                android:src="@drawable/ic_music_halfnote" />
 
             <ImageButton
                 android:id="@+id/quarter_button"
-                android:layout_width="@dimen/box_dims"
-                android:layout_height="@dimen/box_dims"
+                android:layout_width="@dimen/main_dims"
+                android:layout_height="@dimen/main_dims"
                 android:onClick="quarterBtn"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_music_quarternote" />
@@ -83,11 +90,13 @@
 
         <ImageButton
             android:id="@+id/whole_button"
-            android:layout_width="@dimen/box_dims"
-            android:layout_height="@dimen/box_dims"
+            android:layout_width="@dimen/main_dims"
+            android:layout_height="@dimen/main_dims"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
             android:onClick="wholeBtn"
-            android:scaleType="centerCrop"
-            android:src="@drawable/whole_note" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_music_wholenote" />
     </LinearLayout>
 
 
@@ -97,12 +106,13 @@
         android:layout_marginLeft="10dp"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/del_note_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ImageButton
+            android:id="@+id/del_note_btn"
+            android:layout_width="@dimen/box_dims"
+            android:layout_height="@dimen/box_dims"
             android:onClick="delNoteBtn"
-            android:text="-" />
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_remove_black_24dp" />
     </LinearLayout>
 
 </LinearLayout>
