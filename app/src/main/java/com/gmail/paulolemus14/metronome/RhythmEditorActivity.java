@@ -133,14 +133,17 @@ public class RhythmEditorActivity extends AppCompatActivity {   //implements Tab
 
     public void intentBtn(View view) {
         Log.d(DTAG, "Clicked intentBtn");
+        editorView.saveState();
+        interpreter = editorView.getState();
         interpreter.createPassable();
-        float[][] data = interpreter.getPassable();
+        float[] data = interpreter.getPassable();
 
         Intent intent = new Intent(this, MetronomeActivity.class);
         Bundle b = new Bundle();
-        b.putSerializable("data", data);
+        b.putFloatArray("data", data);
+        //b.putSerializable("data", data);
         intent.putExtras(b);
-
+        Log.d(DTAG, "About to launch intent");
         startActivity(intent);
     }
 }

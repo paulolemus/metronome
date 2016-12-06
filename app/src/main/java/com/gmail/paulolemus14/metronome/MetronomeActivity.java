@@ -20,17 +20,20 @@ public class MetronomeActivity extends AppCompatActivity {
     volatile int bp, bt;
     Metronome metronome = new Metronome();
     Converter converter;
-    private float[][] noteData;
+    private float[] noteData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metronome);
 
+        Log.d(TAG, "Getting Intent");
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
-        noteData = (float[][]) b.getSerializable("data");
-
+        Log.d(TAG, "got bundle");
+        //noteData = (float[]) b.getSerializable("data");
+        noteData = b.getFloatArray("data");
+        Log.d(TAG, "got floats");
         PACKAGE_NAME = getApplicationContext().getPackageName();
 
         EditText bpm = (EditText) findViewById(R.id.bpmdisplay);

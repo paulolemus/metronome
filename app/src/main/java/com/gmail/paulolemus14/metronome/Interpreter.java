@@ -26,7 +26,7 @@ public class Interpreter {
 
     private List<Measure> builtList;
 
-    private float[][] passableData;
+    private float[] passableData;
 
 
     public Interpreter() {
@@ -109,23 +109,43 @@ public class Interpreter {
     }
 
     public void createPassable() {
+        Log.d(DTAG, "Entered createpassable");
+
 
         try {
-            passableData = new float[bigNoteTypeList.size()][16];
+            int size = bigNoteTypeList.size() * 16;
+            passableData = new float[size];
 
-            for (int i = 0; i < passableData.length; i++) {
-                for (int j = 0; j < bigNoteTypeList.get(i).size(); j++) {
+            for (int i = 0; i < bigNoteTypeList.size(); i++) {
 
-                    passableData[i][j] = bigNoteTypeList.get(i).get(j).getModifier();
+                for (int j = 0; j < 16; j++) {
+                    try {
+                        passableData[i * 8 + j] = bigNoteTypeList.get(i).get(j).getModifier();
+                    } catch (Exception e) {
+                    }
                 }
             }
+
         } catch (Exception e) {
             Log.d(DTAG, "Failed to create passable");
         }
 
+//        try {
+//            passableData = new float[bigNoteTypeList.size()][16];
+//            Log.d(DTAG, "sizwe="+bigNoteTypeList.size() );
+//            for (int i = 0; i < passableData.length; i++) {
+//                for (int j = 0; j < bigNoteTypeList.get(i).size(); j++) {
+//
+//                    passableData[i][j] = bigNoteTypeList.get(i).get(j).getModifier();
+//                }
+//            }
+//        } catch (Exception e) {
+//            Log.d(DTAG, "Failed to create passable");
+//        }
+
     }
 
-    public float[][] getPassable() {
+    public float[] getPassable() {
         return passableData;
     }
 }
