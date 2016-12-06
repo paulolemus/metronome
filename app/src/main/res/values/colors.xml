@@ -9,4 +9,7 @@
 
     <color name="frag_layout_bg">#c7c7c7</color>
     <color name="frag_layout_border">#d3d3d3</color>
+
+    <color name="GreenishTurquoise">#10b28c</color>
+    <color name="OrangeGray">#5b4a3e</color>
 </resources>

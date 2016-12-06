@@ -41,6 +41,7 @@ public class Converter {
 
     public Converter(Resources res) {
         this.res = res;
+        audio.play();
     }
 
     public void play() {
@@ -66,11 +67,7 @@ public class Converter {
         }
         snare = convertedBeat;
         Log.d(TAG, "Ended loop at i=" + i);
-        //Log.d(TAG, "snare length" + snare.length);
         calcsound(bar);
-
-        //Log.d(TAG, "sample rate-" + audio.getSampleRate());
-        //Log.d(TAG, "buffer size-" + audio.getMinBufferSize(8000, AudioFormat.CHANNEL_OUT_STEREO,AudioFormat.ENCODING_PCM_16BIT));
     }
 
 
@@ -78,18 +75,11 @@ public class Converter {
         silence = (int) (((60 / bpm) * 8000) - snare.length);
     }
 
-    void convert() {
-        Log.d(TAG, "Enter play");
-        //calcsound();
-        Log.d(TAG, "leave calc");
-    }
-
     void calcsound(ArrayList<ArrayList> bar) {
 
         Log.d(TAG, "Enter calc");
         byte[] silence = new byte[4000];
         byte[] sound = new byte[32000];
-        audio.play();
         int t = 0, s = 0, b = 0;
         do {
             for (int j = 0; j < bar.size(); j++) {
@@ -98,29 +88,35 @@ public class Converter {
                         sound[i] = snare[t];
                         this.silence = 20000;
                         t++;
-                        b = 4;
+                        b = 15;
                     } else if (bar.get(j).get(b) == "0.5" && t < 12000) {
                         sound[i] = snare[t];
                         this.silence = 4000;
                         t++;
-                        b += 2;
+                        b += 8;
                     } else if (bar.get(j).get(b) == "0.25" && t < 7000) {
                         sound[i] = snare[t];
                         this.silence = 1000;
                         t++;
-                        b++;
+                        b += 4;
                     } else if (bar.get(j).get(b) == "0.125" && t < 3000) {
                         sound[i] = snare[t];
                         this.silence = 1000;
                         t++;
-                    } else {
+                        b += 2;
+                    }
+                    else if (bar.get(j).get(b) == "0.0625" && t < 3000) {
+                        sound[i] = snare[t];
+                        this.silence = 1000;
+                        t++;
+                        b++;
+                    }else {
                         sound[i] = silence[0];
                         s++;
                         if (s >= this.silence) {
                             t = 0;
                             s = 0;
-                            b++;
-                            if (b > (this.beat - 1))
+                            if (b > (15))
                                 b = 0;
                         }
                     }

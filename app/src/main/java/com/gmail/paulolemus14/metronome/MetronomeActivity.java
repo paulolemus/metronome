@@ -56,7 +56,7 @@ public class MetronomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (flag == 0) {
+                if(flag == 0 && flag1 == 0){
                     metronome = new Metronome();
                     Toast.makeText(MetronomeActivity.this, "Playing", Toast.LENGTH_LONG).show();
 
@@ -72,11 +72,21 @@ public class MetronomeActivity extends AppCompatActivity {
                             metronome.play();
                         }
                     }).start();
-                    flag++;
-                } else {
+                    flag ++;
+                }
+                else if(flag == 0 && flag1 == 1){
+                    converter.stop();
+                    flag1 = 0;
+                }
+                else if(flag == 1 && flag1 == 0){
                     metronome.stop();
-                    //note.stop();
                     flag = 0;
+                }
+                else{
+                    metronome.stop();
+                    converter.stop();
+                    flag = 0;
+                    flag1 = 0;
                 }
             }
         });
@@ -89,8 +99,7 @@ public class MetronomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Clicked button for Notes");
-                //note.play();
-                if (flag == 0) {
+                if(flag == 0 && flag1 == 0){
                     metronome = new Metronome();
                     converter = new Converter(getResources());
                     EditText beat = (EditText) findViewById(R.id.beatdisplay);
@@ -103,14 +112,29 @@ public class MetronomeActivity extends AppCompatActivity {
                     new Thread(new Runnable() {
                         public void run() {
                             converter.play();
-
+                            //metronome.play();
                         }
                     }).start();
-                    flag++;
-                } else {
-                    //metronome.stop();
+                    new Thread(new Runnable() {
+                        public void run() {
+                            metronome.play();
+                        }
+                    }).start();
+                    flag1 ++;
+                }
+                else if(flag == 1 && flag1 == 0){
+                    metronome.stop();
+                    flag = 0;
+                }
+                else if(flag == 0 && flag1 == 1){
+                    converter.stop();
+                    flag1 = 0;
+                }
+                else{
+                    metronome.stop();
                     converter.stop();
                     flag = 0;
+                    flag1 = 0;
                 }
             }
         });
